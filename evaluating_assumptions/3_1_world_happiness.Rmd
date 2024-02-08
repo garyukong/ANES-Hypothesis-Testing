@@ -1,0 +1,70 @@
+---
+title: "Lab 1: Evaluating Assumptions"
+subtitle: "World Happiness"
+output: pdf_document
+date: "`r Sys.Date()`"
+geometry: margin = 0.1in
+---
+
+```{r load packages, message=FALSE, echo=FALSE}
+library(tidyverse)
+```
+
+
+```{r load data, message=FALSE, echo=FALSE}
+happiness <- read_csv('../datasets/happiness_WHR.csv')
+```
+
+\vspace{-.75cm}
+
+There are three assumptions for the two-sample T-test:
+
+1. **Metric Scale**: The data points must be continuous and metric in nature.
+2. **IID data**: Each data point must be IID. 
+3. **No major deviations from normality, considering the sample size**- In particular, the t-test is invalid for highly skewed distributions when sample size is larger than 30.  It may also be invalid for very highly skewed distributions at higher sample sizes.
+
+\vspace{-.75cm}
+
+## Assumption 1: Metric scale
+In particular, the t-test is not valid for variables which only have an ordinal structure. The variables in question, the happiness life ladder and GDP per capita, are both continuous and metric. The summary below shows a 5 figure summary of each variable showing the quantitative nature of these variables. Therefore, this metric scale assumption is met. 
+
+```{r}
+summary(happiness$`Life Ladder`)
+summary(happiness$`Log GDP per capita`)
+```
+
+
+## Assumption 2: IID Data
+Each data point must be independent and individually distributed in the test. The countries' responses do not affect one another's choices, as each country's data point were gathered from a nationally representative sample of THAT country. Therefore, each country's happiness life ladder response and GDP per capita value are independent of one another's. The countries are also identically distributed, as each country's data in this dataset were all pulled from the larger World Happiness Report. Therefore, the IID assumption is met.
+
+
+## Assumption 3: No major deviations from normality, considering the sample size
+As shown below, the distribution of responses for both variables, the happiness life ladder and GDP per capita, are both relatively normally distributed. There is not a heavy skew any direction, with only a slight skew to the left. However, this can be dismissed as it is a high sample size of 226(after removing countries with empty GDP per country), so the Central Limit Theorem kicks in. Therefore, there are no major deviations from normality, and this assumption holds. 
+
+```{r}
+happiness = happiness[!is.na(happiness$`Log GDP per capita`),] # removing NA values for countries that don't report any GDP per capita
+nrow(happiness) ## There are a total of 226 complete responses from countries. 
+```
+
+```{r, echo=FALSE, out.width="40%", out.height="110%"}
+par(mfrow=c(1,2), mar=c(5.1,4.1,4.1,2.1))
+hist(happiness$`Life Ladder`, main = "Life Ladder Distribution", xlab = "Life Ladder Response")
+hist(happiness$`Log GDP per capita`, main = "Log GDP per capita Distribution", xlab = "Log GDP per capita")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

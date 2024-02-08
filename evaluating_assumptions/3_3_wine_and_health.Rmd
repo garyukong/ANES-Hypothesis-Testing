@@ -1,0 +1,55 @@
+---
+title: "Lab 1: Evaluating Assumptions"
+subtitle: "Wine and Health"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r install package if it does not exist}
+if(!require(wooldridge)){
+    install.packages("wooldridge")
+}
+```
+
+```{r load packages, message=FALSE}
+library(tidyverse)
+```
+
+```{r load data, message=FALSE}
+wine <- wooldridge::wine
+```
+
+There are three assumptions for a Wilcoxon signed-rank test:
+
+1. **Metric scale.** In particular, X and Y are both measured on the same metric scale.
+2. **IID data.** In particular, each pair Xi, Yi is drawn from the same distribution, independently of all other pairs.
+3. **The distribution of the difference X - Y is symmetric around some mean µ.**
+
+## Assumption 1: Metric scale
+
+The variables representing the number of deaths from heart disease and liver disease are both quantities of people per 100,000 who died from each respective disease per country observed. This information is provided in the R documentation of the dataset, shared below, and therefore these variables meet the criteria of being measured on the same metric scale:
+
+```{r}
+?wine
+```
+
+## Assumption 2: IID data
+
+This data is identically distributed because the amount of alcohol consumption, overall deaths, and heart & liver disease deaths per observation come from an individual country. This also means the data is independent, as the data cannot come from or reflect more than one country. The number of heart disease deaths in Finland cannot tell us anything about the number of those deaths in Austria, for example.
+
+## Assumption 3: The distribution of the difference X - Y is symmetric around some mean µ
+
+As reflected below, the distribution of the difference between the number of heart disease deaths and liver disease deaths per country around µ = 162.3 is not symmetric. Therefore, this assumption has not been met.
+
+```{r}
+diff_heart_liver <- wine$heart - wine$liver
+```
+
+```{r}
+summary(diff_heart_liver)
+```
+
+```{r}
+hist(diff_heart_liver)
+```
+
