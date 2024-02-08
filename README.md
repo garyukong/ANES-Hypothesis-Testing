@@ -42,7 +42,7 @@ Further research could explore more granular aspects of voting difficulties, suc
     ├── LICENSE
     ├── README.md          
     ├── data
-    │   ├── raw            <- Original ANES 2020 data used for analysis.
+    │   ├── external       <- Original ANES 2020 data used for analysis.
     │   ├── interim        <- Intermediate data transformations.
     │   └── processed      <- The final, canonical datasets for modeling.
     ├── notebooks          <- RMD notebooks for detailed analysis. 
