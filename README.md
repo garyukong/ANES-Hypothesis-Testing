@@ -33,6 +33,12 @@ To replicate this analysis:
 1. Access and download the ANES 2020 data.
 2. Follow the methodology outlined in the `notebooks/` directory, which includes RMD files for data analysis.
 
+## Contributors
+- Gary Kong
+- Yeshwanth Somu
+- Maiya Caldwell
+- Clara Zhu
+
 ## Future Work
 
 Further research could explore more granular aspects of voting difficulties, such as the impact of specific state-level policies on voter experiences. Additionally, longitudinal studies could assess changes in voting accessibility over multiple election cycles.
